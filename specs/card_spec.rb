@@ -2,6 +2,9 @@
 require_relative 'spec_helper'
 
 describe Card do
+  before do
+    @card = Card.new
+  end
   describe "You can create a Card instance" do
 
     it "Can be created" do
@@ -17,14 +20,19 @@ describe Card do
       proc {Card.new(0, :diamonds)}.must_raise ArgumentError
       proc {Card.new(14, :diamonds)}.must_raise ArgumentError
       proc {Card.new(14, :clovers)}.must_raise ArgumentError
+
+      proc {Card.new(-5, :diamonds)}.must_raise ArgumentError
+
+      proc {Card.new(3.5, :diamonds)}.must_raise ArgumentError
+
+      proc {Card.new("five", :hearts)}.must_raise ArgumentError
     end
   end
 
   describe "Testing to_s" do
 
     it "to_s returns a readable String value logically for values 2-10" do
-      # Test to ensure that to_s works for cards values 2-10
-      # for example:  "2 of diamonds"
+      @card.to_s.must_equal "#{@card.value} of #{@card.suit.to_s}"
     end
 
     it "to_s returns a readable String value for Ace, Jack, Queen, King" do
