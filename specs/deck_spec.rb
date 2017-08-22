@@ -36,12 +36,20 @@ describe Deck do
       hand = new_deck.draw
       hand.must_equal top_card
     end
+
     it "card is removed from the deck" do
       card = @deck.draw
       does_card_exist = @deck.contents.include?(card)
       does_card_exist.must_equal false
     end
+
+    it "you cannot draw from an empty deck" do
+      new_deck = Deck.new
+      proc {53.times {new_deck.draw}}.must_raise ArgumentError
+    end
+
   end
+
   describe "You can count how many cards are left in the deck" do
     it "responds to count method" do
       @deck.must_respond_to :count
@@ -55,7 +63,5 @@ describe Deck do
       deck.draw
       deck.contents.length.must_equal expected_count
     end
-
   end
-
 end

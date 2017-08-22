@@ -19,9 +19,13 @@ class Deck
   end
 
   def draw
-    hand = @contents[0]
-    @contents.delete_at(0)
-    return hand
+    if @contents.length == 0
+      raise ArgumentError.new "Deck is currently empty"
+    else
+      hand = @contents[0]
+      @contents.delete_at(0)
+      return hand
+    end
   end
 
   def count
